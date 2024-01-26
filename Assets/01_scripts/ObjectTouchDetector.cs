@@ -17,6 +17,14 @@ public class ObjectTouchDetector : MonoBehaviour
 
             pickedUpObject = other.transform;
         }
+
+        if (other.CompareTag("Collectable"))
+        {
+            GameObject collect = other.gameObject;
+            GameManager.Instance.AddCollectable(other.gameObject);
+            //particle system machen
+            other.gameObject.SetActive(false);
+        }
     }
     private void OnTriggerExit(Collider other)
     {

@@ -26,10 +26,11 @@ public class PlayerMovement : MonoBehaviour
         
         _playerInputACtions = new PlayerInputActions();
         _playerInputACtions.Player.Enable();
-        
-        
-       
-        
+
+        _playerInputACtions.Player.Jump.performed += Jump;
+
+
+
     }
 
     private void Update()
@@ -67,6 +68,11 @@ public class PlayerMovement : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, 0, -rotationAmount);
             arms.localRotation *= rotation;
         }
+    }
+
+    private void Jump(InputAction.CallbackContext context)
+    {
+        _rb.AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
     }
     
     

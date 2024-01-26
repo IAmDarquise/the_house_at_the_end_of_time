@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,10 @@ public class pick_up_system : MonoBehaviour
     public ObjectTouchDetector detector;
 
 
-    
-
+    private void Start()
+    {
+        detector = GetComponent<ObjectTouchDetector>();
+    }
 
 
     // Update is called once per frame
