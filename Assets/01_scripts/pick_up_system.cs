@@ -29,7 +29,6 @@ public class pick_up_system : MonoBehaviour
             detector.pickedUpObject.position = player.transform.position + offset;
         } 
        
-        // istouched = false;
         
         
         

@@ -74,8 +74,10 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb.AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
     }
-    
-    
-    
-   
+
+    private void Throw()
+    {
+        ObjectTouchDetector touch = GetComponentInChildren<ObjectTouchDetector>();
+        touch.Throw();
+    }
 }
