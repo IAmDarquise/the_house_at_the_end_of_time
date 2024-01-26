@@ -7,7 +7,7 @@ public class ObjectTouchDetector : MonoBehaviour
     private bool isTouched = false;
     public Transform pickedUpObject;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("MovableObject"))
         {
@@ -25,8 +25,8 @@ public class ObjectTouchDetector : MonoBehaviour
             //particle system machen
             other.gameObject.SetActive(false);
         }
-    }
-    private void OnTriggerExit(Collider other)
+    } 
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("MovableObject"))
         {

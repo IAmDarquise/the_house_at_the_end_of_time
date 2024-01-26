@@ -7,12 +7,13 @@ public class PlayerCollisions : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("EndLevel"))
+        if (other.CompareTag("NextLevel"))
         {
             if (GameManager.Instance.finishedRoom)
             {
                 //go to next room
-                //Camera jump
+                //Camera jump animation
+                //set sprites as inactive
             }
 
         }
