@@ -6,8 +6,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-
     public bool finishedRoom;
     public List<GameObject> Collectables = new List<GameObject>();
     public GameObject[] Notes;
@@ -37,6 +35,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(_activeNote);
             _activeNote = null;
+            finishedRoom = true;
         }
     }
 }
