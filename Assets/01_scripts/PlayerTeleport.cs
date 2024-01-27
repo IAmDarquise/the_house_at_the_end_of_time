@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class PlayerTeleport : MonoBehaviour
 {
     public Transform[] teleportDestinations;
     private int currentDestinationIndex = 0;
+    private Transform lastTeleportDestination;
 
     public void TeleportPlayer()
     {
         if(teleportDestinations != null && teleportDestinations.Length > 0)
         {
             transform.position = teleportDestinations[currentDestinationIndex].position;
+
+            lastTeleportDestination = teleportDestinations[currentDestinationIndex];
 
             Debug.Log("Player teleported to destination " + currentDestinationIndex);
 
@@ -25,4 +29,21 @@ public class PlayerTeleport : MonoBehaviour
             Debug.Log("Teleport destinations are not set!");
         }
     }
+
+    public void RespawnPlayer()
+    {
+        
+        if (lastTeleportDestination != null)
+        {
+            transform.position = lastTeleportDestination.position;
+            Debug.Log("Player respawned at the last teleport destination");
+        }
+        else
+        {
+            Debug.LogError("No last teleport destination set for respawn!");
+        }
+    }
+    
+
+
 }
