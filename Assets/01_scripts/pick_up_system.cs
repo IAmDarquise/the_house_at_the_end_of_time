@@ -38,10 +38,6 @@ public class pick_up_system : MonoBehaviour
             detector.pickedUpObject.GetComponent<Rigidbody2D>().gravityScale = 1;
             _pickingUp = false;
         }
-       
-        
-        
-        
     }
 
     private IEnumerator CarryObject()
