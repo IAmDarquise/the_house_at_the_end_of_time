@@ -41,7 +41,7 @@ Shader "Unlit/BandWSpot"
             float4 _CharacterPosition;
             float _CircleRadius;
             float _RingSize;
-            float4 _ColorTint;
+            //float4 _ColorTint;
             
 
             v2f vert (appdata v)
