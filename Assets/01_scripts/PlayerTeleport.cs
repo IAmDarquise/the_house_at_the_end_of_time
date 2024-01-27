@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -5,13 +6,19 @@ using UnityEngine;
 
 public class PlayerTeleport : MonoBehaviour
 {
+    public Vector3 ogPos;
     public Transform[] teleportDestinations;
     private int currentDestinationIndex = 0;
     private Transform lastTeleportDestination;
 
+    private void Start()
+    {
+        ogPos = transform.position; 
+    }
+
     public void TeleportPlayer()
     {
-        if(GameManager.Instance.finishedRoom)
+        
             if(teleportDestinations != null && teleportDestinations.Length > 0)
             {
                 transform.position = teleportDestinations[currentDestinationIndex].position;
@@ -35,7 +42,7 @@ public class PlayerTeleport : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        
+        transform.position = ogPos;
         if (lastTeleportDestination != null)
         {
             transform.position = lastTeleportDestination.position;

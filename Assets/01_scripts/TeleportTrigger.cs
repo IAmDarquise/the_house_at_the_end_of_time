@@ -14,9 +14,12 @@ public class TeleportTrigger : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            playerTeleport.TeleportPlayer();
-            onTeleport?.Invoke();
-            GameManager.Instance.SwapOutsides();
+            if (GameManager.Instance.finishedRoom)
+            {
+                playerTeleport.TeleportPlayer();
+                onTeleport?.Invoke();
+                GameManager.Instance.SwapOutsides();
+            }
         }
     }
 }

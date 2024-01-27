@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DroneController : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class DroneController : MonoBehaviour
     public DroneActivate act;
     public bool isGrounded = false;
     public float speed;
+
+    public UnityEvent finishedEvent;
     void Update()
     {
         float x =Input.GetAxis("Horizontal");
@@ -20,6 +23,7 @@ public class DroneController : MonoBehaviour
     {
         act.active = false;
         act.notcompleted = false;
+        finishedEvent?.Invoke();
     }
     private void OnTriggerEnter2D(Collider2D collision) // win condtion Wip
     {

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public bool finishedRoom;
     public GameObject[] outsides;
     public List<GameObject> Collectables = new List<GameObject>();
+    public GameObject[] Portals;
     public GameObject[] Notes;
     private int noteIndex;
 
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     public void AddCollectable(GameObject collectable)
     {
         Collectables.Add(collectable);
+        Portals[noteIndex].SetActive(true);
         ShowNote();
         noteIndex++;
     }
