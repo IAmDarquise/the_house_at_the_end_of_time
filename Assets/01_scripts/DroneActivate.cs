@@ -9,6 +9,7 @@ public class DroneActivate : MonoBehaviour
     public PlayerMovement player;
     public bool notcompleted = true;
     public CameraMovement cam;
+    public Animator animator;
     //float wait = 0;
     //float normalspeed;
     // Start is called before the first frame update
@@ -19,6 +20,8 @@ public class DroneActivate : MonoBehaviour
     {
         if (active)
         {
+
+            animator.SetBool("flying",true);
             if (player != null)
             {
                 player.enabled = false;
@@ -29,6 +32,7 @@ public class DroneActivate : MonoBehaviour
 
         else
         {
+            animator.SetBool("flying", false);
             if (player != null)
             {
                 player.enabled = true;
