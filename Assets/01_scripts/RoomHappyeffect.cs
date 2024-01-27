@@ -22,7 +22,6 @@ public class RoomHappyeffect : MonoBehaviour
     private void Start()
     {
         mat = this.GetComponent<Renderer>().material;
-        Debug.Log(mat);
         player.materials.Add(mat);
         //renderer = GetComponent<Renderer>();
         //room.enabled = false;
