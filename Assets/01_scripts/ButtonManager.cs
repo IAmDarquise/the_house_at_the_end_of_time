@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+    public string goscene_credit;
+
     public void StartGame()
     {
         SceneManager.LoadScene(1);
@@ -14,4 +16,9 @@ public class ButtonManager : MonoBehaviour
     {
         Application.Quit();
     }
+    public void Credits()
+    {
+        SceneManager.LoadScene(goscene_credit);
+    }
+
 }
