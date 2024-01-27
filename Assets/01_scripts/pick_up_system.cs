@@ -35,7 +35,7 @@ public class pick_up_system : MonoBehaviour
                 if (detector.pickedUpObject.GetComponent<Breakable>())
                 {
                     Breakable breakable =detector.pickedUpObject.GetComponent<Breakable>();
-                    breakable.canBreak = true;
+                    
                     offset = breakable.offset;
                 }
             }
@@ -50,6 +50,8 @@ public class pick_up_system : MonoBehaviour
             _pickingUp = false;
             detector.pickedUpObject.GetComponent<Collider2D>().isTrigger = false;
         }
+
+       
     }
 
     private IEnumerator CarryObject()

@@ -44,13 +44,19 @@ public class ObjectTouchDetector : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            pickedUpObject = null;
+            StartCoroutine(NullPickedUp());
         }
     }
 
     public bool IsTouched()
     {
         return isTouched;
+    }
+
+    private IEnumerator NullPickedUp()
+    {
+        yield return new WaitForSeconds(0.001f);
+        pickedUpObject = null;
     }
 
     public void Throw(float dir)

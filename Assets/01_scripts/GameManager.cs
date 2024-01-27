@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public int roomNum;
     public static GameManager Instance;
     public bool finishedRoom;
+    public GameObject[] outsides;
     public List<GameObject> Collectables = new List<GameObject>();
     public GameObject[] Notes;
     private int noteIndex;
@@ -46,5 +47,12 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
+    }
+
+    public void SwapOutsides()
+    {  
+        outsides[roomNum].SetActive(true);
+        roomNum++;
+        outsides[roomNum].SetActive(false);
     }
 }
