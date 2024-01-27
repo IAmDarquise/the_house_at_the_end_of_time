@@ -1426,7 +1426,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomNum: 0
   finishedRoom: 0
-  Collectables: []
+  Collectables:
+  - {fileID: 0}
   Notes:
   - {fileID: 335299936}
 --- !u!4 &1749013790
@@ -1877,6 +1878,10 @@ PrefabInstance:
     - target: {fileID: 6978610986649027807, guid: 2177d1eaf3ff2a249a7ba68c0f6c0987, type: 3}
       propertyPath: m_Offset.y
       value: 0.01147759
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978610986963706353, guid: 2177d1eaf3ff2a249a7ba68c0f6c0987, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2177d1eaf3ff2a249a7ba68c0f6c0987, type: 3}

@@ -83,6 +83,15 @@ public class PlayerMovement : MonoBehaviour
         float armVector = _playerInputACtions.Player.MouseMovement.ReadValue<float>();
         float rotationAmount = armVector * rotationMultiplier;
 
+        Debug.Log(arms.eulerAngles.z);
+        if (arms.eulerAngles.z > 90 && arms.eulerAngles.z < 270)
+        {
+            if(arms.eulerAngles.z < 100)
+                arms.localEulerAngles = new Vector3(arms.localEulerAngles.x, arms.localEulerAngles.y,90 );
+            if(arms.eulerAngles.z < 280 && arms.eulerAngles.z > 150)
+                arms.localEulerAngles = new Vector3(arms.localEulerAngles.x, arms.localEulerAngles.y,270 );
+        }
+
         if (Mathf.Abs(rotationAmount) > 0.1f)
         {
             Quaternion rotation = Quaternion.Euler(0, 0, -rotationAmount);
