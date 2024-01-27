@@ -7,6 +7,8 @@ public class Breakable : MonoBehaviour
 {
     public GameObject collectableInside;
     public bool canBreak = false;
+
+    public Vector3 offset;
     public void Drop()
     {
         canBreak = true;

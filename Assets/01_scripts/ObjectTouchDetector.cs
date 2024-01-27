@@ -36,7 +36,7 @@ public class ObjectTouchDetector : MonoBehaviour
 
             Debug.Log("Object Touched");
 
-            pickedUpObject = null;
+            //pickedUpObject = null;
         }
     }
 
