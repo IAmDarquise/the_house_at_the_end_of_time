@@ -31,6 +31,13 @@ public class pick_up_system : MonoBehaviour
             {
                 detector.pickedUpObject.GetComponent<Rigidbody2D>().gravityScale = 0;
                 detector.pickedUpObject.GetComponent<Collider2D>().isTrigger = true;
+
+                if (detector.pickedUpObject.GetComponent<Breakable>())
+                {
+                    Breakable breakable =detector.pickedUpObject.GetComponent<Breakable>();
+                    breakable.canBreak = true;
+                    offset = breakable.offset;
+                }
             }
 
             _pickingUp = true;
