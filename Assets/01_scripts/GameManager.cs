@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public int roomNum;
     public static GameManager Instance;
     public bool finishedRoom;
     public List<GameObject> Collectables = new List<GameObject>();

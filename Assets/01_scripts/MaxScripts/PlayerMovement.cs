@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 10f;
+    public float jumpDist = 10f;
     public Transform arms;
     public float rotationMultiplier;
     public float maximumRotation;
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         _playerInputACtions.Player.Jump.performed += Jump;
 
 
+        _anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -64,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply force in the transformed local space
         _rb.AddForce(movement, ForceMode2D.Force);
+        
+        SetAnimSpeed();
     }
 
     
@@ -73,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump(InputAction.CallbackContext context)
     {
         if(_grounded)
-            _rb.AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
+            _rb.AddForce(Vector3.up * jumpDist, ForceMode2D.Impulse);
     }
 
     void MoveArm()
@@ -81,6 +85,15 @@ public class PlayerMovement : MonoBehaviour
         
         float armVector = _playerInputACtions.Player.MouseMovement.ReadValue<float>();
         float rotationAmount = armVector * rotationMultiplier;
+
+//        Debug.Log(arms.eulerAngles.z);
+        if (arms.eulerAngles.z > 90 && arms.eulerAngles.z < 270)
+        {
+            if(arms.eulerAngles.z < 100)
+                arms.localEulerAngles = new Vector3(arms.localEulerAngles.x, arms.localEulerAngles.y,90 );
+            if(arms.eulerAngles.z < 280 && arms.eulerAngles.z > 150)
+                arms.localEulerAngles = new Vector3(arms.localEulerAngles.x, arms.localEulerAngles.y,270 );
+        }
 
         if (Mathf.Abs(rotationAmount) > 0.1f)
         {
@@ -107,6 +120,20 @@ public class PlayerMovement : MonoBehaviour
                 .AddForce(new Vector2(throwForce * 2, 0), ForceMode2D.Impulse);
         }
     }
+    /*private void Throw()
+    {
+        ObjectTouchDetector touch = GetComponentInChildren<ObjectTouchDetector>();
+
+        // Calculate the direction of the throw based on the sign of the armVector
+        float throwDirection = Mathf.Sign(_playerInputACtions.Player.MouseMovement.ReadValue<float>());
+
+        // Calculate the force based on the rotation of the arm and throw direction
+        float throwForce = _lastPos.x + _hand.localPosition.x * throwDirection;
+
+        // Apply the force to the object
+        touch.pickedUpObject.GetComponent<Rigidbody2D>()
+            .AddForce(new Vector2(throwForce * 2, 0), ForceMode2D.Impulse);
+    }*/
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -122,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetAnimSpeed()
     {
+        Debug.Log(_anim.speed);
         _anim.speed = _rb.velocity.magnitude;
     }
 
