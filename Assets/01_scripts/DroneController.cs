@@ -6,11 +6,13 @@ public class DroneController : MonoBehaviour
 {
     public Rigidbody2D drone;
     public DroneActivate act;
+    public bool isGrounded = false;
+    public float speed;
     void Update()
     {
         float x =Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-        drone.AddForce(new Vector2(x, y).normalized);
+        drone.AddForce(new Vector2(x, y).normalized*speed);
     }
 
 
