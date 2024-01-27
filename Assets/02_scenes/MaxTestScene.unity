@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 1522673272}
   - component: {fileID: 1522673275}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1139,6 +1139,7 @@ MonoBehaviour:
   arms: {fileID: 128589527}
   rotationMultiplier: 0.2
   maximumRotation: 60
+  _hand: {fileID: 1522673268}
 --- !u!4 &1770292055
 Transform:
   m_ObjectHideFlags: 0

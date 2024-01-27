@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     
     
     private Vector2 _rotateInput;
+    private Vector3 _lastPos;
+
+    public Transform _hand;
     private void Start()
     {
         maximumRotation = maximumRotation * 100;
@@ -30,12 +33,15 @@ public class PlayerMovement : MonoBehaviour
         _playerInputACtions.Player.Jump.performed += Jump;
 
 
-
     }
 
     private void Update()
     {
         MoveArm();
+
+        if(Input.GetMouseButtonUp(0))
+            Throw();
+     
     }
 
     //movement
@@ -53,31 +59,65 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply force in the transformed local space
         _rb.AddForce(movement, ForceMode2D.Force);
-        
-        
-        
+
+       
+
     }
 
-    void MoveArm()
+    /*void MoveArm()
     {
         float armVector = _playerInputACtions.Player.MouseMovement.ReadValue<float>();
         float rotationAmount = armVector * rotationMultiplier;
 
         if (Mathf.Abs(rotationAmount) > 0.0001f)
         {
+            Debug.Log(_hand.position);
             Quaternion rotation = Quaternion.Euler(0, 0, -rotationAmount);
             arms.localRotation *= rotation;
+            _lastPos = _hand.position;
+            Debug.Log(_lastPos);
+            
         }
-    }
+    }*/
+   
+
 
     private void Jump(InputAction.CallbackContext context)
     {
         _rb.AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
     }
 
+    void MoveArm()
+    {
+        _lastPos = _hand.localPosition;
+        float armVector = _playerInputACtions.Player.MouseMovement.ReadValue<float>();
+        float rotationAmount = armVector * rotationMultiplier;
+
+        if (Mathf.Abs(rotationAmount) > 0.1f)
+        {
+            Quaternion rotation = Quaternion.Euler(0, 0, -rotationAmount);
+            arms.localRotation *= rotation;
+            
+        }
+    }
+
     private void Throw()
     {
         ObjectTouchDetector touch = GetComponentInChildren<ObjectTouchDetector>();
-        touch.Throw();
+        
+        Debug.Log(Vector3.Distance(_lastPos, _hand.localPosition));
+        // Check if the mouse is moving (the position changed)
+        if (Vector3.Distance(_lastPos, _hand.localPosition) > 0.0001f)
+        {
+            
+            // Calculate the force based on the rotation of the arm
+            float throwForce = _lastPos.x + _hand.localPosition.x;
+
+            // Apply the force to the object
+            touch.pickedUpObject.GetComponent<Rigidbody2D>()
+                .AddForce(new Vector2(throwForce * 2, 0), ForceMode2D.Impulse);
+        }
     }
+
+
 }
