@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class ObjectTouchDetector : MonoBehaviour
         {
             GameObject collect = other.gameObject;
             GameManager.Instance.AddCollectable(other.gameObject);
+            GameManager.Instance.finishedRoom = true;
             //particle system machen
             other.gameObject.SetActive(false);
         }
@@ -38,6 +40,13 @@ public class ObjectTouchDetector : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            pickedUpObject = null;
+        }
+    }
 
     public bool IsTouched()
     {
