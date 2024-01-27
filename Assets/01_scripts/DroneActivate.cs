@@ -24,7 +24,7 @@ public class DroneActivate : MonoBehaviour
                 player.enabled = false;
             }
             drone.enabled = true;
-            cam.player = this.transform;
+            cam.player = drone.transform;
         }
 
         else
