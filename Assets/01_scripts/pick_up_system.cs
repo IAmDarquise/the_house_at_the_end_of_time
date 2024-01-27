@@ -25,7 +25,7 @@ public class pick_up_system : MonoBehaviour
 
         istouched = detector.IsTouched();
 
-        if(istouched && Input.GetMouseButton(0))
+        if(istouched && Input.GetMouseButton(0)) 
         {
             if (_pickingUp == false)
                 detector.pickedUpObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -42,5 +42,10 @@ public class pick_up_system : MonoBehaviour
         
         
         
+    }
+
+    private IEnumerator CarryObject()
+    {
+        yield return null;
     }
 }

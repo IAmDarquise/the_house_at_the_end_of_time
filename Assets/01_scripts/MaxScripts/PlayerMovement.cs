@@ -37,11 +37,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        
         MoveArm();
 
         if(Input.GetMouseButtonUp(0))
             Throw();
-     
+        _lastPos = _hand.position;
     }
 
     //movement
@@ -89,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveArm()
     {
-        _lastPos = _hand.localPosition;
+        
         float armVector = _playerInputACtions.Player.MouseMovement.ReadValue<float>();
         float rotationAmount = armVector * rotationMultiplier;
 
@@ -105,9 +106,9 @@ public class PlayerMovement : MonoBehaviour
     {
         ObjectTouchDetector touch = GetComponentInChildren<ObjectTouchDetector>();
         
-        Debug.Log(Vector3.Distance(_lastPos, _hand.localPosition));
+        Debug.Log(Vector3.Distance(_lastPos, _hand.position));
         // Check if the mouse is moving (the position changed)
-        if (Vector3.Distance(_lastPos, _hand.localPosition) > 0.0001f)
+        if (Vector3.Distance(_lastPos, _hand.position) > 0.0001f)
         {
             
             // Calculate the force based on the rotation of the arm
