@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetAnimSpeed()
     {
-        Debug.Log(_anim.speed);
+//        Debug.Log(_anim.speed);
         _anim.speed = _rb.velocity.magnitude;
     }
 

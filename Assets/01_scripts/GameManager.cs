@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Instance= (Instance == null) ? this : Instance;
+        
+        LockCursor();
     }
 
     public void AddCollectable(GameObject collectable)
@@ -38,5 +40,11 @@ public class GameManager : MonoBehaviour
             _activeNote = null;
             finishedRoom = true;
         }
+    }
+
+    private void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 }
