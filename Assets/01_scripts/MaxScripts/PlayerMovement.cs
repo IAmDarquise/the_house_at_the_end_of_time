@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
+    public bool reversed;
     public float speed = 10f;
     public float jumpDist = 10f;
     public Transform arms;
+    public Transform arm2;
     public float rotationMultiplier;
     public float maximumRotation;
     [Space]
@@ -48,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetMouseButtonUp(0))
             Throw();
+        if(Input.GetMouseButtonUp(1))
+            Throw();
         _lastPos = _hand.position;
     }
 
@@ -60,9 +64,16 @@ public class PlayerMovement : MonoBehaviour
         
         // Get the forward direction in local space
         Vector3 forwardDirection = transform.forward;
-
-        // Transform the input vector to world space using the object's forward direction
-        Vector3 movement = transform.TransformDirection(new Vector3(inputVector, 0, 0)) * speed;
+        Vector3 movement;
+        if (!reversed)
+        {
+            // Transform the input vector to world space using the object's forward direction
+            movement = transform.TransformDirection(new Vector3(inputVector, 0, 0)) * speed;
+        }
+        else
+        {
+            movement = transform.TransformDirection(new Vector3(-inputVector, 0, 0)) * speed;
+        }
 
         // Apply force in the transformed local space
         _rb.AddForce(movement, ForceMode2D.Force);
@@ -83,8 +94,13 @@ public class PlayerMovement : MonoBehaviour
     void MoveArm()
     {
         
+        
         float armVector = _playerInputACtions.Player.MouseMovement.ReadValue<float>();
-        float rotationAmount = armVector * rotationMultiplier;
+        float rotationAmount = 0;
+        if(!reversed)
+            rotationAmount = armVector * rotationMultiplier;
+        if(reversed)
+            rotationAmount = -armVector * rotationMultiplier;
 
 //        Debug.Log(arms.eulerAngles.z);
         if (arms.eulerAngles.z > 90 && arms.eulerAngles.z < 270)
@@ -105,9 +121,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Throw()
     {
-        ObjectTouchDetector touch = GetComponentInChildren<ObjectTouchDetector>();
-        
+        ObjectTouchDetector touch = _hand.GetComponent<ObjectTouchDetector>();
+        Debug.Log(touch.pickedUpObject);
         Debug.Log(Vector3.Distance(_lastPos, _hand.position));
+        //touch.pickedUpObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100, ForceMode2D.Impulse);
+        
         // Check if the mouse is moving (the position changed)
         if (Vector3.Distance(_lastPos, _hand.position) > 0.0001f)
         {
@@ -115,10 +133,18 @@ public class PlayerMovement : MonoBehaviour
             // Calculate the force based on the rotation of the arm
             float throwForce = _lastPos.x + _hand.localPosition.x;
 
+            Debug.Log(touch.gameObject);
             // Apply the force to the object
             touch.pickedUpObject.GetComponent<Rigidbody2D>()
-                .AddForce(new Vector2(throwForce * 2, 0), ForceMode2D.Impulse);
+                .AddForce(new Vector2(-throwForce * 1, 0), ForceMode2D.Impulse);
         }
+    }
+
+    private void ForceThrow()
+    {
+        ObjectTouchDetector touch = _hand.GetComponent<ObjectTouchDetector>();
+        touch.pickedUpObject.GetComponent<Rigidbody2D>()
+            .AddForce(new Vector2(-2 * 5, 0), ForceMode2D.Impulse);
     }
     /*private void Throw()
     {
@@ -151,6 +177,14 @@ public class PlayerMovement : MonoBehaviour
     {
 //        Debug.Log(_anim.speed);
         _anim.speed = _rb.velocity.magnitude;
+    }
+
+    public void Reverse()
+    {
+        transform.eulerAngles = new Vector3(0, 180, 0);
+        reversed = true;
+        //arms = arm2;
+        //arms.GetComponentInChildren<Collider2D>().enabled = true;
     }
 
 }
