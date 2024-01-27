@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
+    public bool reversed;
     public float speed = 10f;
     public float jumpDist = 10f;
     public Transform arms;
+    public Transform arm2;
     public float rotationMultiplier;
     public float maximumRotation;
     [Space]
@@ -60,9 +62,16 @@ public class PlayerMovement : MonoBehaviour
         
         // Get the forward direction in local space
         Vector3 forwardDirection = transform.forward;
-
-        // Transform the input vector to world space using the object's forward direction
-        Vector3 movement = transform.TransformDirection(new Vector3(inputVector, 0, 0)) * speed;
+        Vector3 movement;
+        if (!reversed)
+        {
+            // Transform the input vector to world space using the object's forward direction
+            movement = transform.TransformDirection(new Vector3(inputVector, 0, 0)) * speed;
+        }
+        else
+        {
+            movement = transform.TransformDirection(new Vector3(-inputVector, 0, 0)) * speed;
+        }
 
         // Apply force in the transformed local space
         _rb.AddForce(movement, ForceMode2D.Force);
@@ -83,8 +92,13 @@ public class PlayerMovement : MonoBehaviour
     void MoveArm()
     {
         
+        
         float armVector = _playerInputACtions.Player.MouseMovement.ReadValue<float>();
-        float rotationAmount = armVector * rotationMultiplier;
+        float rotationAmount = 0;
+        if(!reversed)
+            rotationAmount = armVector * rotationMultiplier;
+        if(reversed)
+            rotationAmount = -armVector * rotationMultiplier;
 
 //        Debug.Log(arms.eulerAngles.z);
         if (arms.eulerAngles.z > 90 && arms.eulerAngles.z < 270)
@@ -151,6 +165,14 @@ public class PlayerMovement : MonoBehaviour
     {
 //        Debug.Log(_anim.speed);
         _anim.speed = _rb.velocity.magnitude;
+    }
+
+    public void Reverse()
+    {
+        transform.eulerAngles = new Vector3(0, 180, 0);
+        reversed = true;
+        //arms = arm2;
+        //arms.GetComponentInChildren<Collider2D>().enabled = true;
     }
 
 }

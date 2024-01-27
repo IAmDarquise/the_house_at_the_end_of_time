@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TeleportTrigger : MonoBehaviour
 {
     public PlayerTeleport playerTeleport;
 
+    public UnityEvent onTeleport;
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.tag);
@@ -13,6 +15,7 @@ public class TeleportTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerTeleport.TeleportPlayer();
+            onTeleport?.Invoke();
         }
     }
 }
