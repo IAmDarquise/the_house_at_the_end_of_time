@@ -28,7 +28,11 @@ public class pick_up_system : MonoBehaviour
         if(istouched && Input.GetMouseButton(0)) 
         {
             if (_pickingUp == false)
+            {
                 detector.pickedUpObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+                detector.pickedUpObject.GetComponent<Collider2D>().isTrigger = true;
+            }
+
             _pickingUp = true;
             detector.pickedUpObject.position = player.transform.position + offset;
         }
@@ -37,6 +41,7 @@ public class pick_up_system : MonoBehaviour
         {
             detector.pickedUpObject.GetComponent<Rigidbody2D>().gravityScale = 1;
             _pickingUp = false;
+            detector.pickedUpObject.GetComponent<Collider2D>().isTrigger = false;
         }
     }
 
