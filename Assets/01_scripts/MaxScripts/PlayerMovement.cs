@@ -119,9 +119,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Throw()
     {
-        ObjectTouchDetector touch = GetComponentInChildren<ObjectTouchDetector>();
-        
+        ObjectTouchDetector touch = _hand.GetComponent<ObjectTouchDetector>();
+        Debug.Log(touch.pickedUpObject);
         Debug.Log(Vector3.Distance(_lastPos, _hand.position));
+        //touch.pickedUpObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100, ForceMode2D.Impulse);
+        
         // Check if the mouse is moving (the position changed)
         if (Vector3.Distance(_lastPos, _hand.position) > 0.0001f)
         {
@@ -129,9 +131,10 @@ public class PlayerMovement : MonoBehaviour
             // Calculate the force based on the rotation of the arm
             float throwForce = _lastPos.x + _hand.localPosition.x;
 
+            Debug.Log(touch.gameObject);
             // Apply the force to the object
             touch.pickedUpObject.GetComponent<Rigidbody2D>()
-                .AddForce(new Vector2(throwForce * 2, 0), ForceMode2D.Impulse);
+                .AddForce(new Vector2(throwForce * 5, 0), ForceMode2D.Impulse);
         }
     }
     /*private void Throw()
