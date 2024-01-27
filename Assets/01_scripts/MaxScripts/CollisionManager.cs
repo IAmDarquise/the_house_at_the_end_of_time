@@ -14,4 +14,10 @@ public class CollisionManager : MonoBehaviour
         if(col.transform.CompareTag(colTag))
             onHit?.Invoke();
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.transform.CompareTag(colTag))
+            onHit?.Invoke();
+    }
 }
