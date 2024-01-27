@@ -43,4 +43,9 @@ public class ObjectTouchDetector : MonoBehaviour
     {
         return isTouched;
     }
+
+    public void Throw(float dir)
+    {
+        pickedUpObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(), ForceMode2D.Impulse);
+    }
 }

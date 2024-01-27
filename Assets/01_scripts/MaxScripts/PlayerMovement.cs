@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
+    public float speed = 10f;
     public Transform arms;
     public float rotationMultiplier;
     public float maximumRotation;
@@ -14,10 +15,16 @@ public class PlayerMovement : MonoBehaviour
 
 
     private Rigidbody2D _rb;
-    
+    private bool _grounded;
     
     
     private Vector2 _rotateInput;
+    private Vector3 _lastPos;
+
+    public Transform _hand;
+    
+    //animations
+    private Animator _anim;
     private void Start()
     {
         maximumRotation = maximumRotation * 100;
@@ -30,19 +37,23 @@ public class PlayerMovement : MonoBehaviour
         _playerInputACtions.Player.Jump.performed += Jump;
 
 
-
     }
 
     private void Update()
     {
+        
         MoveArm();
+
+        if(Input.GetMouseButtonUp(0))
+            Throw();
+        _lastPos = _hand.position;
     }
 
     //movement
     private void FixedUpdate()
     {
         float inputVector = _playerInputACtions.Player.Movement.ReadValue<float>();
-        float speed = 5f;
+        
         //_rb.AddForce(new Vector3(inputVector.x, 0, inputVector.y)*speed, ForceMode.Force);
         
         // Get the forward direction in local space
@@ -53,29 +64,65 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply force in the transformed local space
         _rb.AddForce(movement, ForceMode2D.Force);
-        
-        
-        
+    }
+
+    
+   
+
+
+    private void Jump(InputAction.CallbackContext context)
+    {
+        if(_grounded)
+            _rb.AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
     }
 
     void MoveArm()
     {
+        
         float armVector = _playerInputACtions.Player.MouseMovement.ReadValue<float>();
         float rotationAmount = armVector * rotationMultiplier;
 
-        if (Mathf.Abs(rotationAmount) > 0.0001f)
+        if (Mathf.Abs(rotationAmount) > 0.1f)
         {
             Quaternion rotation = Quaternion.Euler(0, 0, -rotationAmount);
             arms.localRotation *= rotation;
+            
         }
     }
 
-    private void Jump(InputAction.CallbackContext context)
+    private void Throw()
     {
-        _rb.AddForce(Vector3.up * 5f, ForceMode2D.Impulse);
+        ObjectTouchDetector touch = GetComponentInChildren<ObjectTouchDetector>();
+        
+        Debug.Log(Vector3.Distance(_lastPos, _hand.position));
+        // Check if the mouse is moving (the position changed)
+        if (Vector3.Distance(_lastPos, _hand.position) > 0.0001f)
+        {
+            //
+            // Calculate the force based on the rotation of the arm
+            float throwForce = _lastPos.x + _hand.localPosition.x;
+
+            // Apply the force to the object
+            touch.pickedUpObject.GetComponent<Rigidbody2D>()
+                .AddForce(new Vector2(throwForce * 2, 0), ForceMode2D.Impulse);
+        }
     }
-    
-    
-    
-   
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.transform.CompareTag("Ground"))
+            _grounded = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.transform.CompareTag("Ground"))
+            _grounded = false;
+    }
+
+    private void SetAnimSpeed()
+    {
+        _anim.speed = _rb.velocity.magnitude;
+    }
+
 }

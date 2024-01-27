@@ -9,6 +9,7 @@ public class pick_up_system : MonoBehaviour
     public GameObject player;
 
     private bool istouched;
+    private bool _pickingUp;
     public ObjectTouchDetector detector;
 
 
@@ -24,14 +25,23 @@ public class pick_up_system : MonoBehaviour
 
         istouched = detector.IsTouched();
 
-        if(istouched && Input.GetMouseButton(0))
+        if(istouched && Input.GetMouseButton(0)) 
         {
+            if (_pickingUp == false)
+                detector.pickedUpObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            _pickingUp = true;
             detector.pickedUpObject.position = player.transform.position + offset;
-        } 
-       
-        // istouched = false;
-        
-        
-        
+        }
+
+        if (istouched && Input.GetMouseButtonUp(0))
+        {
+            detector.pickedUpObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+            _pickingUp = false;
+        }
+    }
+
+    private IEnumerator CarryObject()
+    {
+        yield return null;
     }
 }
