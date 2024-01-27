@@ -50,6 +50,8 @@ public class pick_up_system : MonoBehaviour
             _pickingUp = false;
             detector.pickedUpObject.GetComponent<Collider2D>().isTrigger = false;
         }
+
+       
     }
 
     private IEnumerator CarryObject()

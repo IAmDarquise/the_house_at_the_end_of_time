@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetMouseButtonUp(0))
             Throw();
+        if(Input.GetMouseButtonUp(1))
+            Throw();
         _lastPos = _hand.position;
     }
 
@@ -134,8 +136,15 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(touch.gameObject);
             // Apply the force to the object
             touch.pickedUpObject.GetComponent<Rigidbody2D>()
-                .AddForce(new Vector2(throwForce * 5, 0), ForceMode2D.Impulse);
+                .AddForce(new Vector2(-throwForce * 1, 0), ForceMode2D.Impulse);
         }
+    }
+
+    private void ForceThrow()
+    {
+        ObjectTouchDetector touch = _hand.GetComponent<ObjectTouchDetector>();
+        touch.pickedUpObject.GetComponent<Rigidbody2D>()
+            .AddForce(new Vector2(-2 * 5, 0), ForceMode2D.Impulse);
     }
     /*private void Throw()
     {

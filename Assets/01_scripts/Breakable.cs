@@ -12,6 +12,8 @@ public class Breakable : MonoBehaviour
     public UnityEvent onSetBreak;
     public UnityEvent onBreak;
     public Vector3 offset;
+
+    public Transform spawnPos;
     public void Drop()
     {
         canBreak = true;
@@ -30,7 +32,7 @@ public class Breakable : MonoBehaviour
     {
         if (canBreak)
         {
-            Instantiate(collectableInside, transform.position, Quaternion.identity);
+            Instantiate(collectableInside, spawnPos.position, Quaternion.identity);
             onBreak?.Invoke();
             gameObject.SetActive(false);
         }
