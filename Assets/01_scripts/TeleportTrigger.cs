@@ -16,6 +16,7 @@ public class TeleportTrigger : MonoBehaviour
         {
             playerTeleport.TeleportPlayer();
             onTeleport?.Invoke();
+            GameManager.Instance.SwapOutsides();
         }
     }
 }
