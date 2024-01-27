@@ -15,7 +15,10 @@ public class PlayerTeleport : MonoBehaviour
 
             Debug.Log("Player teleported to destination " + currentDestinationIndex);
 
-            currentDestinationIndex = (currentDestinationIndex + 1) % teleportDestinations.Length;
+            if(currentDestinationIndex > teleportDestinations.Length)
+                return;
+            //currentDestinationIndex = (currentDestinationIndex + 1) % teleportDestinations.Length;
+            currentDestinationIndex++;
         }
         else
         {

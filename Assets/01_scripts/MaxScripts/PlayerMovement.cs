@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         _playerInputACtions.Player.Jump.performed += Jump;
 
 
+        _anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -65,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply force in the transformed local space
         _rb.AddForce(movement, ForceMode2D.Force);
+        
+        SetAnimSpeed();
     }
 
     
@@ -83,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         float armVector = _playerInputACtions.Player.MouseMovement.ReadValue<float>();
         float rotationAmount = armVector * rotationMultiplier;
 
-        Debug.Log(arms.eulerAngles.z);
+//        Debug.Log(arms.eulerAngles.z);
         if (arms.eulerAngles.z > 90 && arms.eulerAngles.z < 270)
         {
             if(arms.eulerAngles.z < 100)
@@ -146,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetAnimSpeed()
     {
+        Debug.Log(_anim.speed);
         _anim.speed = _rb.velocity.magnitude;
     }
 
