@@ -2033,7 +2033,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music : "Piano Moment" by Zakhar Valaha (Daddy_s_Music)'
+  m_text: Music by Zakhar Valaha (Daddy_s_Music)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89c0d69a83e11ed4c9dc557aa0531290, type: 2}
   m_sharedMaterial: {fileID: -2506457578135959021, guid: 89c0d69a83e11ed4c9dc557aa0531290, type: 2}
