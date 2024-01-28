@@ -2141,8 +2141,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 512977707}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+      - m_Target: {fileID: 1975721835}
+        m_TargetAssemblyTypeName: AudioSlider, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 1
         m_Arguments:
