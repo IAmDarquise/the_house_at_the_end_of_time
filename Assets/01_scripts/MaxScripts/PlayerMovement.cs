@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
@@ -129,7 +130,13 @@ public class PlayerMovement : MonoBehaviour
         // Check if the mouse is moving (the position changed)
         if (Vector3.Distance(_lastPos, _hand.position) > 0.0001f)
         {
-            touch.pickedUpObject.gameObject.layer =6;
+            //can't throw self
+            if (touch.pickedUpObject.GetComponent<Breakable>() && !touch.pickedUpObject.GetComponent<Breakable>().isVase)
+            {
+                Debug.Log("throwRegular");
+                //touch.pickedUpObject.gameObject.layer =6;
+            }
+            //touch.pickedUpObject.gameObject.layer =6;
             //
             // Calculate the force based on the rotation of the arm
             float throwForce = _lastPos.x + _hand.localPosition.x;
@@ -147,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("changeLayer");
         yield return new WaitForSeconds(1f);
-        throwingItem.layer = 0;
+        //throwingItem.layer = 0;
     }
 
     private void ForceThrow()

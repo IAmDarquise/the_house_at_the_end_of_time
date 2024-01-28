@@ -8,7 +8,7 @@ public class ObjectTouchDetector : MonoBehaviour
     private bool isTouched = false;
     public Transform pickedUpObject;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("MovableObject"))
         {
