@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class ButtonManager : MonoBehaviour
 {
     public string goscene_credit;
+    public string goscene_start;
 
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(goscene_start);
     }
 
     public void ExitGame()
