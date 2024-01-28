@@ -7,6 +7,7 @@ public class ButtonManager : MonoBehaviour
 {
     public string goscene_credit;
     public string goscene_start;
+    public string goscene_howto;
 
     public void StartGame()
     {
@@ -20,6 +21,11 @@ public class ButtonManager : MonoBehaviour
     public void Credits()
     {
         SceneManager.LoadScene(goscene_credit);
+    }
+
+    public void HowTo()
+    {
+        SceneManager.LoadScene(goscene_howto);
     }
 
 }
