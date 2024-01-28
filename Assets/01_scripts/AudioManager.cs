@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
@@ -12,7 +13,7 @@ public class AudioManager : MonoBehaviour
    // public Slider slider;
     void Start()
     {
-        //slider.onValueChanged.AddListener(SetVolume);
+        ////slider.onValueChanged.AddListener(SetVolume);
         if (instance == null)
         {
             instance = this;
@@ -22,6 +23,8 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        SceneManager.sceneLoaded += FindAudioManager;
+
         //audioSource.time = Random.Range(0, audioSource.clip.length/2); <- no
     }
 
@@ -29,5 +32,10 @@ public class AudioManager : MonoBehaviour
     public void SetVolume(float vol)
     {
         audioSource.volume = vol;
+    }
+
+    public void FindAudioManager(Scene scene, LoadSceneMode mode)
+    {
+        GameObject.Find("AudioManager");
     }
 }

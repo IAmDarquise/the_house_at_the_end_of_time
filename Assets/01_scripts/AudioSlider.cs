@@ -13,5 +13,10 @@ public class AudioSlider : MonoBehaviour
 
     }
 
+    public void SetVolume()
+    {
+        AudioManager.instance.SetVolume(slider.value);
+    }
+
    
 }
