@@ -13,21 +13,32 @@ public class GameManager : MonoBehaviour
     public GameObject[] Portals;
     public GameObject[] Notes;
     private int noteIndex;
-
+    int roomid;
+    public List<RoomHappyeffect> rooms;
+    public PlayerMovement player;
+    public Rigidbody2D rigi;
+    float speed;
+    float wait;
     private GameObject _activeNote;
     void Start()
     {
         Instance= (Instance == null) ? this : Instance;
-        
+        speed = player.speed;
         LockCursor();
     }
 
     public void AddCollectable(GameObject collectable)
     {
+        
+        rooms[roomid].active = true;
+        roomid++;
         Collectables.Add(collectable);
         Portals[noteIndex].SetActive(true);
         ShowNote();
         noteIndex++;
+        player.speed = 0;
+        wait = 0;
+        rigi.velocity = new Vector2(0,0);
     }
 
     private void ShowNote()
@@ -37,11 +48,21 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        
+        if (player.speed == 0)
+        {
+            wait += Time.deltaTime;
+            if (wait >= 3.5f) { 
+            player.speed = speed;
+            }
+        }
+        
         if (Input.GetMouseButtonDown(0) && _activeNote != null)
         {
             Destroy(_activeNote);
             _activeNote = null;
             finishedRoom = true;
+            wait = 3.5f;
         }
     }
 

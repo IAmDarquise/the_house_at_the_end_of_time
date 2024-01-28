@@ -7,7 +7,7 @@ using UnityEngine;
 public class RoomHappyeffect : MonoBehaviour
 {
     public SetShaderProp player;
-    public SetShaderProp room;
+    //public SetShaderProp room;
     public string propertyName;
     public float increaseamount;
     public bool active;
@@ -37,11 +37,19 @@ public class RoomHappyeffect : MonoBehaviour
         if (increaseamount > maxsize)
         {
             player.enabled = true;
-           enabled = false;
-           // room.mat = room.mat2;
-           //room.mat 
+            enabled = false;
+            //room.mat = room.mat2;
+            //room.mat 
             //room.mat.SetFloat(propertyName, startsize);
         }
+    }
+    public void Seta()
+    {
+        active = true;
+    }
+    public void FadeToBlack()
+    {
+        mat.color = Color.black;
     }
     // Start is called before the first frame update
     //void Start()

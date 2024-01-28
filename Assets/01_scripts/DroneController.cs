@@ -9,7 +9,7 @@ public class DroneController : MonoBehaviour
     public DroneActivate act;
     public bool isGrounded = false;
     public float speed;
-
+    public RoomHappyeffect room;
     public UnityEvent finishedEvent;
     void Update()
     {
@@ -30,6 +30,7 @@ public class DroneController : MonoBehaviour
         //Debug.Log(collision.gameObject.tag); 
         if (collision.gameObject.tag == "Finish")
         {
+            room.active = true;
             Completed();
         }
     }
