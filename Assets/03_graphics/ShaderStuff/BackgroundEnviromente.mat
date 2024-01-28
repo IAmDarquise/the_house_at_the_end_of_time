@@ -29,5 +29,5 @@ Material:
     - _CircleRadius: 3
     - _RingSize: 1
     m_Colors:
-    - _CharacterPosition: {r: -2.6265154, g: 0.93075794, b: -1.12, a: 0}
+    - _CharacterPosition: {r: -19.1, g: 19.4, b: 0.001, a: 0}
   m_BuildTextureStacks: []
