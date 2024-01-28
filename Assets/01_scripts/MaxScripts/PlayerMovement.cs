@@ -129,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
         // Check if the mouse is moving (the position changed)
         if (Vector3.Distance(_lastPos, _hand.position) > 0.0001f)
         {
+            touch.pickedUpObject.gameObject.layer =6;
             //
             // Calculate the force based on the rotation of the arm
             float throwForce = _lastPos.x + _hand.localPosition.x;
@@ -137,7 +138,16 @@ public class PlayerMovement : MonoBehaviour
             // Apply the force to the object
             touch.pickedUpObject.GetComponent<Rigidbody2D>()
                 .AddForce(new Vector2(-throwForce * 1, 0), ForceMode2D.Impulse);
+
+            StartCoroutine(DelayLayerChange(touch.gameObject));
         }
+    }
+
+    private IEnumerator DelayLayerChange(GameObject throwingItem)
+    {
+        Debug.Log("changeLayer");
+        yield return new WaitForSeconds(1f);
+        throwingItem.layer = 0;
     }
 
     private void ForceThrow()
